@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, FormBuilder, Validators} from '@angular/forms';
 import 'rxjs/Rx';
 
@@ -7,7 +7,7 @@ import 'rxjs/Rx';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   serachSystems = [
     {name: 'google', host: 'www.google.com'},
     {name: 'bink', host: 'www.bink.com'},
@@ -35,7 +35,9 @@ export class AppComponent {
     this.searchField.valueChanges.subscribe(val => this.searchValue = val);
 
   }
+  ngOnInit() {}
   navigateTo() {
+    this.searchValue = encodeURIComponent(this.searchValue);
     window.location.href = `https://${this.searchEngineValue}/search?q=${this.searchValue}`;
   }
 }
