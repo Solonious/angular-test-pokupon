@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {FormControl, FormGroup, FormBuilder, Validators} from '@angular/forms';
+import 'rxjs/Rx';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,34 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  serachSystems = [
+    {name: 'google', host: 'www.google.com'},
+    {name: 'bink', host: 'www.bink.com'},
+    {name: 'ask', host: 'ask.fm'}
+  ];
+
+  searchForm: FormGroup;
+  searchField: FormControl;
+  searchEngine: FormControl;
+  searchEngineValue: string;
+  searchValue: string;
+
+  constructor(
+    private fb: FormBuilder
+  ) {
+    this.searchField = new FormControl('', [Validators.required, Validators.minLength(1)]);
+    this.searchEngine = new FormControl('', [Validators.required]);
+    this.searchForm = fb.group({
+      search: this.searchField,
+      engine: this.searchEngine
+    });
+
+    this.searchEngine.valueChanges.subscribe(val => this.searchEngineValue = val);
+
+    this.searchField.valueChanges.subscribe(val => this.searchValue = val);
+
+  }
+  navigateTo() {
+    window.location.href = `https://${this.searchEngineValue}/search?q=${this.searchValue}`;
+  }
 }
