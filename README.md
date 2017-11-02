@@ -1,5 +1,13 @@
 # TestAngTask
 
+git clone https://github.com/Solonious/angular-test-pokupon.git
+
+cd angular-test-pokupon
+
+npm install && npm start
+
+Navigate to [localhost:4500](http://localhost:4500)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.3.1.
 
 ## Development server
