@@ -1,16 +1,22 @@
 <div class="container">
-  <form [formGroup]="searchForm">
-    <input [formControl]="searchField" type="text" placeholder="Input search text">
-    <div [hidden]="searchField.valid || searchField.untouched">
-      <p>Oops something wrong!!!</p>
-    </div>
-    <select [formControl]="searchEngine">
-      <option *ngFor="let item of serachSystems; let i=index" value={{item.host}}>{{item.name}}</option>
-    </select>
-    <div [hidden]="searchEngine.valid || searchEngine.untouched">
-      <p>Oops something wrong!!!</p>
-    </div>
-    <button type="submit" [disabled]="!searchForm.valid" (click)="navigateTo()">Search</button>
-  </form>
-  <div class="results"></div>
+  <mat-toolbar class="header" color="primary">
+    <h2>Search Engine Application</h2>
+  <!--</mat-toolbar-row>-->
+  </mat-toolbar>
+    <mat-card>
+      <form  class="search-form" [formGroup]="searchForm">
+      <!--<input  type="text" placeholder="Input search text">-->
+        <mat-form-field>
+          <input [formControl]="searchField" matInput placeholder="Input search text" value="">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select [formControl]="searchEngine" placeholder="Search Engine">
+            <mat-option *ngFor="let item of serachSystems" [value]="item.host">
+              {{item.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-button type="submit" [disabled]="!searchForm.valid" (click)="navigateTo()">Search</button>
+      </form>
+  </mat-card>
 </div>
